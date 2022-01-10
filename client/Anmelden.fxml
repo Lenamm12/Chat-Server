@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="528.0" prefWidth="453.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="Hilfe" />
+      </menus>
+    </MenuBar>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <children>
+            <Label layoutX="157.0" layoutY="39.0" text="Anmelden">
+               <font>
+                  <Font size="31.0" />
+               </font>
+            </Label>
+            <Label layoutX="103.0" layoutY="151.0" text="Name">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField layoutX="221.0" layoutY="147.0" name="name"/>
+        
+            <Label layoutX="103.0" layoutY="219.0" text="Passwort">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+                <TextField layoutX="221.0" layoutY="215.0" name="passwort" />
+            <Button layoutX="265.0" layoutY="336.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Login" onClick="login()" />
+            <Button layoutX="119.0" layoutY="336.0" mnemonicParsing="false" text="Registrieren" onClick="registrieren()" />
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>
