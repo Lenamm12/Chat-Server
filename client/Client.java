@@ -5,12 +5,13 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
 
+import javafx.application.Application;
 import server.ServerThread;
 
 public class Client {
 
-    private static final String host = "10.0.3.36";
-    private static final int portNumber = 4711;
+    public static final String host = "10.0.3.36";
+    public static final int portNumber = 4711;
 
     private String userName;
     private String serverHost;
@@ -18,8 +19,12 @@ public class Client {
 
 
     public static void main(String[] args){
+    	Anmelden.main(args); //Fenster öffnen
+    	
+    	
         String readName = null;
         Scanner scan = new Scanner(System.in);
+        /*
         System.out.println("Nutzername eingeben:");
         while(readName == null || readName.trim().equals("")){
 
@@ -28,8 +33,11 @@ public class Client {
                 System.out.println("Bitte erneut versuchen:");
             }
         }
+        */
+        
+        String username = AnmeldenController.getUsername();
 
-        Client client = new Client(readName, host, portNumber);
+        Client client = new Client(username, host, portNumber);
         client.startClient(scan);
     }
 
