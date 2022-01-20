@@ -13,7 +13,9 @@ public class Chat extends Application implements Runnable{
 	
 	private Scene scene;
 	
-	
+	  public static final String host = "10.0.3.36";
+	    public static final int portNumber = 4711;
+
 
 	 @Override
 	    public void start(Stage stage) throws Exception {
@@ -27,6 +29,13 @@ public class Chat extends Application implements Runnable{
 	        x.start(); */
 	        
 	        this.scene = new Scene(root);
+	        
+	        String username = AnmeldenController.getUsername();
+	        
+	        	 Client client = new Client(username, host, portNumber);
+	        	 client.startClient();
+	        	 
+	        ChatController.nutzerAnzeigen();
 	        
 	        //stage.setScene(scene);
 	        //stage.show();

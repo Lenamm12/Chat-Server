@@ -46,12 +46,14 @@ public class ServerThread implements Runnable {
                     }
                 }
                 if(hasMessages){
+                	
+                	
                     String nextSend = "";
                     synchronized(messagesToSend){
                         nextSend = messagesToSend.pop();
                         hasMessages = !messagesToSend.isEmpty();
                     }
-                    serverOut.println(userName + " > " + nextSend);
+                    serverOut.println(userName + " : " + nextSend);
                     serverOut.flush();
                 }
             }

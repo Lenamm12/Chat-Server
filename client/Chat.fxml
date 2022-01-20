@@ -14,11 +14,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.ChatController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
-        <Menu mnemonicParsing="false" text="Neuer Kontakt" />
         <Menu mnemonicParsing="false" text="Einstellungen" />
         <Menu mnemonicParsing="false" text="Hilfe" />
             <Menu mnemonicParsing="false" text="Logout" />
@@ -26,9 +25,9 @@
     </MenuBar>
     <SplitPane dividerPositions="0.2505567928730512" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <items>
-        <AnchorPane id="kontakteBox">
+        <AnchorPane >
           <children>
-                  <ListView prefHeight="551.0" prefWidth="222.0" />
+                  <ListView prefHeight="551.0" prefWidth="222.0" id="kontakteBox" />
           </children>
         </AnchorPane>
             <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="551.0" prefWidth="700.0">
@@ -50,7 +49,7 @@
     </SplitPane>
     <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
       <children>
-        <Label alignment="CENTER_RIGHT" disable="true" maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Lena Moraweietz, Manuel Gentes" textAlignment="RIGHT" textFill="#464545" HBox.hgrow="ALWAYS">
+        <Label alignment="CENTER_RIGHT" disable="true" maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Lena Morawietz, Manuel Gentes" textAlignment="RIGHT" textFill="#464545" HBox.hgrow="ALWAYS">
           <font>
             <Font size="11.0" fx:id="x3" />
           </font>
