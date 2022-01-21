@@ -51,7 +51,14 @@ public class Chat extends Application implements Runnable{
 	@Override
 	public void run() {
 		 try {
+			 String username = AnmeldenController.getUsername();
+		     System.out.println(username);
+        	 Client client = new Client(username, host, portNumber);
+        	 client.startClient();
+        	 
+       
 			AnmeldenController.getInstance().showScene();
+			ChatController.nutzerAnzeigen();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

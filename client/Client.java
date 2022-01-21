@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
 
-import javafx.application.Application;
-import server.FileManager;
+//import javafx.application.Application;
+//import server.FileManager;
 import server.ServerThread;
 
 public class Client {
@@ -17,6 +17,8 @@ public class Client {
     private static String userName;
     private static String serverHost;
     private static int serverPort;
+    
+    public static ServerThread serverThread;
 
 
     public static void main(String[] args) throws IOException{
@@ -41,6 +43,10 @@ public class Client {
         this.serverPort = portNumber;
     }
 
+    public static void setServerThread(ServerThread thr) {
+    	 Client.serverThread = thr;
+    }
+    
     public void startClient(){
     	
     	   Scanner scan = new Scanner(System.in);
@@ -49,14 +55,16 @@ public class Client {
        	// Client client = new Client(userName, host, portNumber);
            
         try{
+        	System.out.println("socket mach was");
             Socket socket = new Socket(serverHost, serverPort);
             Thread.sleep(1000); 
 
             ServerThread serverThread = new ServerThread(socket, userName);
             Thread serverAccessThread = new Thread(serverThread);
             serverAccessThread.start();
-            //Bräuchte exxtra Thread
-          /*  while(serverAccessThread.isAlive()){
+            setServerThread(serverThread);
+                       //Bräuchte exxtra Thread
+          /*while(serverAccessThread.isAlive()){
             	  System.out.println("Test");
                 if(scan.hasNextLine()){
                     serverThread.addNextMessage(scan.nextLine());

@@ -21,7 +21,7 @@ public class ChatController {
 	private TextField neue_Nachricht;
 	
 	@FXML
-	static ListView kontakteBox;
+	static ListView<String> kontakteBox;
 	
 	protected static ListProperty<String> lp = new SimpleListProperty<>();
 	
@@ -29,7 +29,8 @@ public class ChatController {
 	private void nachricht_senden() throws Exception {
 		
 		//Nachricht im Fenster anzeigen
-		
+		String nachricht = neue_Nachricht.getText();
+		Client.serverThread.addNextMessage(nachricht);
 		//Nachricht über Server an anderen Nutzer senden
 		
 	}
@@ -39,8 +40,9 @@ public class ChatController {
 		
 		ArrayList<String> list =  FileManager.getAktiveNutzer();
 		lp.set(FXCollections.observableArrayList(list));
-		kontakteBox.itemsProperty().bind(lp);
 		
+		kontakteBox.itemsProperty().bind(lp);
+		System.out.println("unter Box");
 	}
 
 }

@@ -44,7 +44,7 @@ public class AnmeldenController {
     public void login() throws IOException {
         username = name.getText();
         userpasswort = passwort.getText();
-        
+        System.out.println(username);
   //   if(FileManager.loginCheck(username, userpasswort) == true) {
         
 
