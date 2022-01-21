@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import client.Message;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
@@ -18,7 +19,7 @@ public class FileManager {
 	
 	static Alert alert;
 	
-	static ArrayList<String> aktiveNutzer = new ArrayList<String>();
+	
 	
 	//Nutzer Überprüfung beim Login
 	public static boolean loginCheck(String username, String password ) throws IOException {
@@ -44,7 +45,7 @@ public class FileManager {
              alert.setContentText("Login erfolgreich");
              alert.show();
              
-             aktiveNutzer.add(username);
+             Message.aktiveNutzer.add(username);
             		 
              	return true;
            }
@@ -72,7 +73,6 @@ public class FileManager {
        
 	}
 	catch (FileNotFoundException e) {
-		//Alert
 		alert = new Alert(AlertType.ERROR);
 		alert.setContentText("Nutzerdatenbank nicht gefunden");
     
@@ -116,23 +116,15 @@ public class FileManager {
 		    bw.newLine();
 		    bw.close();
 		    
-		    aktiveNutzer.add(username);
+		    Message.aktiveNutzer.add(username);
 		}
 		
 		
 	}
 	
-	//online-liste herausgeben
-	public static ArrayList<String> getAktiveNutzer()
-	{
-		return aktiveNutzer;
-	}
 
 	
-	//aus online-liste entfernen
-	public void offline(String username) {
-		aktiveNutzer.remove(username);
-	}
+
 	
 	
 }

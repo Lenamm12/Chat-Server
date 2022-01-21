@@ -25,16 +25,16 @@
     </MenuBar>
     <SplitPane dividerPositions="0.2505567928730512" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <items>
-        <AnchorPane >
+        <AnchorPane maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="551.0" prefWidth="200.0">
           <children>
-                  <ListView prefHeight="551.0" prefWidth="222.0" fx:id="kontakteBox" />
+                  <ListView fx:id="kontakteBox" layoutX="6.0" layoutY="6.0" maxHeight="1.7976931348623157E308" prefHeight="539.0" prefWidth="211.0" />
           </children>
         </AnchorPane>
             <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="551.0" prefWidth="700.0">
               <items>
-              <ScrollPane prefHeight="457.0" prefWidth="700.0">
+              <ScrollPane maxWidth="1.7976931348623157E308" prefHeight="457.0" prefWidth="700.0">
                 <content>
-                  <AnchorPane id="chatBox" maxWidth="700.0" minHeight="-1.0" minWidth="-Infinity" prefHeight="504.0" prefWidth="665.0" />
+                  <ListView id="chatBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="650.0" />
                 </content>
               </ScrollPane>
                 <AnchorPane id="neue_Nachrichten" maxHeight="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="50.0" prefWidth="670.0">

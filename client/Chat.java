@@ -20,15 +20,17 @@ public class Chat extends Application implements Runnable{
 	 @Override
 	    public void start(Stage stage) throws Exception {
 
-	        FXMLLoader loader = new FXMLLoader();
+//Doppelt
+	      /*  FXMLLoader loader = new FXMLLoader();
 	        loader.setLocation(getClass().getResource("Chat.fxml"));
-	        Parent root = loader.load();
+	        Parent root = loader.load(); */
+		 
 	      /*  con = fxmlLoader.<ChatController>.getController();
 	        Listener listener = new Listener(name, con);
 	        Thread x = new Thread(listener);
 	        x.start(); */
 	        
-	        this.scene = new Scene(root);
+	     //   this.scene = new Scene(root);
 	        
 	        String username = AnmeldenController.getUsername();
 	        

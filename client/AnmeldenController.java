@@ -32,6 +32,7 @@ public class AnmeldenController {
     
     static String username;
     static String userpasswort;
+    static Stage stage;
 
     public AnmeldenController() {
         instance = this;
@@ -46,7 +47,7 @@ public class AnmeldenController {
         userpasswort = passwort.getText();
         System.out.println(username);
   //   if(FileManager.loginCheck(username, userpasswort) == true) {
-        
+        User.setName(username);
 
         FXMLLoader fmxlLoader = new FXMLLoader(getClass().getResource("Chat.fxml"));
         Parent window =  fmxlLoader.load();
@@ -84,6 +85,10 @@ public class AnmeldenController {
 
 	public static String getPasswort () {
 		return userpasswort;
+	}
+
+	public static Stage getPrimaryStage() {
+		return stage;
 	}
 
 }
