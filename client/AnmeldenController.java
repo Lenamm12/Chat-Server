@@ -33,7 +33,7 @@ public class AnmeldenController {
     static String username;
     static String userpasswort;
     static Stage stage;
-
+    
     public AnmeldenController() {
         instance = this;
     }
@@ -46,20 +46,23 @@ public class AnmeldenController {
         username = name.getText();
         userpasswort = passwort.getText();
         System.out.println(username);
+        
+        //Überprüfung
   //   if(FileManager.loginCheck(username, userpasswort) == true) {
         User.setName(username);
 
         FXMLLoader fmxlLoader = new FXMLLoader(getClass().getResource("Chat.fxml"));
         Parent window =  fmxlLoader.load();
-     //  con = fmxlLoader.<ChatController>getController();
-      //  Listener listener = new Listener( username, con);
-      //  Thread x = new Thread(listener);
-      //  x.start();
+       con = fmxlLoader.<ChatController>getController();
+        
+   	 
+   	 Chat.main();
+
    
        
-       Thread chatfenster = new Thread(new Chat());
-       chatfenster.start();
-        this.scene = new Scene(window);
+     //  Thread chatfenster = new Thread(new Chat());
+    //   chatfenster.start();
+     //   this.scene = new Scene(window);
         
      //  }
      

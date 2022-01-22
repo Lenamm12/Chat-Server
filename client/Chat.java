@@ -9,53 +9,25 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-public class Chat extends Application implements Runnable{
+public class Chat extends Application {
 	
 	private Scene scene;
 	
 	  public static final String host = "10.0.3.36";
 	    public static final int portNumber = 4711;
+	  
 
 
 	 @Override
 	    public void start(Stage stage) throws Exception {
 
-//Doppelt
-	      /*  FXMLLoader loader = new FXMLLoader();
-	        loader.setLocation(getClass().getResource("Chat.fxml"));
-	        Parent root = loader.load(); */
-		 
-	      /*  con = fxmlLoader.<ChatController>.getController();
-	        Listener listener = new Listener(name, con);
-	        Thread x = new Thread(listener);
-	        x.start(); */
-	        
-	     //   this.scene = new Scene(root);
-	        
-	        String username = AnmeldenController.getUsername();
-	        
-	        	 Client client = new Client(username, host, portNumber);
-	        	 client.startClient();
-	        	 
-	        ChatController.nutzerAnzeigen();
-	        
-	        //stage.setScene(scene);
-	        //stage.show();
-	    }
-
-	public static void main() {
-		launch();
-		
-	}
-	
-
-
-	@Override
-	public void run() {
 		 try {
 			 String username = AnmeldenController.getUsername();
 		     System.out.println(username);
-        	 Client client = new Client(username, host, portNumber);
+		     
+		     FXMLLoader fmxlLoader = new FXMLLoader(getClass().getResource("Chat.fxml"));
+			 ChatController con =  fmxlLoader.<ChatController>getController();
+        	 Client client = new Client(username, host, portNumber,con);
         	 client.startClient();
         	 
        
@@ -64,6 +36,11 @@ public class Chat extends Application implements Runnable{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		 
+	    }
+
+	public static void main() {
+		launch();
 		
 	}
 	

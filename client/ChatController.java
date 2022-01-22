@@ -9,6 +9,7 @@ import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,7 +34,7 @@ import server.FileManager;
 public class ChatController implements Initializable{
 	
 	@FXML
-	private ListView chatBox;
+	private ListView<HBox> chatBox;
 	@FXML
 	private TextField neue_Nachricht;
 	
@@ -47,10 +48,10 @@ public class ChatController implements Initializable{
 		
 		//Nachricht im Fenster anzeigen
 		String nachricht = neue_Nachricht.getText();
-		Client.serverThread.addNextMessage(nachricht);
+	//	Client.serverThread.addNextMessage(nachricht);
 		//Nachricht über Server an anderen Nutzer senden
 		 if (!neue_Nachricht.getText().isEmpty()) {
-	            Listener.send(nachricht);
+	            Client.send(nachricht);
 	            neue_Nachricht.clear();
 	        }
 		
@@ -58,11 +59,15 @@ public class ChatController implements Initializable{
 	
 	public static void nutzerAnzeigen() {
 		System.out.println("Nutzer anzeigen funkt");
-		
+		/*
 		ArrayList<String> list =  Message.getAktiveNutzer();
 		lp.set(FXCollections.observableArrayList(list));
+		kontakteBox.itemsProperty().bind(lp);*/
+		//Platform.runLater(() -> {
+		ObservableList<String> users = FXCollections.observableList(Message.getAktiveNutzer());
+		kontakteBox.setItems(users);
+	//	});
 		
-		kontakteBox.itemsProperty().bind(lp);
 		System.out.println("unter Box");
 	}
 
