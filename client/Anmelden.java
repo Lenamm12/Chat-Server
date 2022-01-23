@@ -12,7 +12,7 @@ public class Anmelden extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-
+	//Öffnen des Anmelden-Fensters
 	 @Override
 	    public void start(Stage stage) throws Exception {
 

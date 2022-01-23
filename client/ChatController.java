@@ -33,47 +33,64 @@ import server.FileManager;
 
 public class ChatController implements Initializable{
 	
-	@FXML
-	private ListView<HBox> chatBox;
+	
 	@FXML
 	private TextField neue_Nachricht;
+	private Client client;
 	
 	@FXML
-	static ListView<String> kontakteBox;
+	private ListView<String> kontakteBox;
+	@FXML
+	private ListView<String> chatBox;
 	
-	protected static ListProperty<String> lp = new SimpleListProperty<>();
+	protected static ListProperty<String> lpUser = new SimpleListProperty<>();
+	protected static ListProperty<String> lpNachrichten = new SimpleListProperty<>();
 	
+	//Methode die vom Button Senden benutzt wird
 	@FXML
 	private void nachricht_senden() throws Exception {
 		
-		//Nachricht im Fenster anzeigen
+		//Nachricht über Server an andere Nutzer senden
+		
 		String nachricht = neue_Nachricht.getText();
-	//	Client.serverThread.addNextMessage(nachricht);
-		//Nachricht über Server an anderen Nutzer senden
-		 if (!neue_Nachricht.getText().isEmpty()) {
-	            Client.send(nachricht);
-	            neue_Nachricht.clear();
+		if (!neue_Nachricht.getText().isEmpty()) {
+			 Client.serverThread.addNextMessage(nachricht);
+			 neue_Nachricht.clear();
 	        }
+		while (Client.serverThread.hasMessages ) {
+			Thread.sleep(100);
+		}
+	}
+	
+	
+	public void setClient(Client client){
+		this.client = client;
 		
 	}
 	
-	public static void nutzerAnzeigen() {
-		System.out.println("Nutzer anzeigen funkt");
-		/*
-		ArrayList<String> list =  Message.getAktiveNutzer();
-		lp.set(FXCollections.observableArrayList(list));
-		kontakteBox.itemsProperty().bind(lp);*/
-		//Platform.runLater(() -> {
-		ObservableList<String> users = FXCollections.observableList(Message.getAktiveNutzer());
-		kontakteBox.setItems(users);
-	//	});
+	
+	public void nutzerAnzeigen() {
+		ArrayList<String> users =  Message.getAktiveNutzer();
+		lpUser.set(FXCollections.observableArrayList(users));
+		kontakteBox.itemsProperty().bind(lpUser);
 		
-		System.out.println("unter Box");
+		//ObservableList<String> users = FXCollections.observableList(Message.getAktiveNutzer());
+		//kontakteBox.setItems(users);
 	}
+
+	public void nachrichtenAnzeigen() {
+		ArrayList<String> nachrichten =  Message.getNachrichten();
+		lpNachrichten.set(FXCollections.observableArrayList(nachrichten));
+		chatBox.itemsProperty().bind(lpNachrichten);
+		
+	} 
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-	     /* Added to prevent the enter from adding a new line to inputnachrichtBox */
+		nutzerAnzeigen();
+		nachrichtenAnzeigen();
+	    
+		//Nachrichten werden mit Enter abgesendet
         neue_Nachricht.addEventFilter(KeyEvent.KEY_PRESSED, ke -> {
             if (ke.getCode().equals(KeyCode.ENTER)) {
                 try {
@@ -86,78 +103,10 @@ public class ChatController implements Initializable{
         });
 		
 	}
+	
 
+      //  if (nachricht.getName().equals(User.getName())) {
+      
 
-	public void logoutScene() {
-		Platform.runLater(() -> {
-            FXMLLoader fmxlLoader = new FXMLLoader(getClass().getResource("Anmelden.fxml"));
-            Parent window = null;
-            try {
-                window = (Pane) fmxlLoader.load();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            Stage stage = AnmeldenController.getPrimaryStage();
-            Scene scene = new Scene(window);
-            stage.setMaxWidth(350);
-            stage.setMaxHeight(420);
-            stage.setResizable(false);
-            stage.setScene(scene);
-            stage.centerOnScreen();
-        });
-		
-	}
-
-	public void addToChat(Message nachricht) {
-	    Task<HBox> andereNachrichten = new Task<HBox>() {
-            @Override
-            public HBox call() throws Exception {
-
-                Label nachrichtenLabel = new Label();
-        
-                    nachrichtenLabel.setText(nachricht.getName() + ": " + nachricht.getNachricht());
-                
-                nachrichtenLabel.setBackground(new Background(new BackgroundFill(Color.WHITE,null, null)));
-                HBox x = new HBox();
-                x.getChildren().addAll( nachrichtenLabel);
-                //logger.debug("ONLINE USERS: " + Integer.toString(Message.getAktiveNutzer().size()));
-                return x;
-            }
-        };
-
-        andereNachrichten.setOnSucceeded(event -> {
-            chatBox.getItems().add(andereNachrichten.getValue());
-        });
-
-        Task<HBox> eigeneNachrichten = new Task<HBox>() {
-            @Override
-            public HBox call() throws Exception {
-                Label nachrichtenLabel = new Label();
-              
-                    nachrichtenLabel.setText(nachricht.getNachricht());
-                
-                nachrichtenLabel.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN,
-                        null, null)));
-                HBox x = new HBox();
-                x.setMaxWidth(chatBox.getWidth() - 20);
-                x.setAlignment(Pos.TOP_RIGHT);
-                x.getChildren().addAll(nachrichtenLabel);
-
-                return x;
-            }
-        };
-        eigeneNachrichten.setOnSucceeded(event -> chatBox.getItems().add(eigeneNachrichten.getValue()));
-
-        if (nachricht.getName().equals(User.getName())) {
-            Thread t2 = new Thread(eigeneNachrichten);
-            t2.setDaemon(true);
-            t2.start();
-        } else {
-            Thread t = new Thread(andereNachrichten);
-            t.setDaemon(true);
-            t.start();
-        }
-		
-	}
 
 }

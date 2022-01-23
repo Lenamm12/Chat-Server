@@ -35,7 +35,7 @@ public class FileManager {
            String s = in.nextLine();  
            String[] sArray = s.split(",");
            
-           System.out.println(sArray[0]); //Just to verify that file is being read
+           System.out.println(sArray[0]); 
            System.out.println(sArray[1]);
 
            
@@ -94,7 +94,7 @@ public class FileManager {
            String s = in.nextLine();  
            String[] sArray = s.split(",");
            
-           System.out.println(sArray[0]); //Just to verify that file is being read
+           System.out.println(sArray[0]); 
            System.out.println(sArray[1]);
 
            

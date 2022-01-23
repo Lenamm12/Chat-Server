@@ -4,6 +4,7 @@ package server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +48,8 @@ public class ChatServer {
         while(true){
             try{
                 Socket socket = serverSocket.accept();
-                System.out.println("Akzeptiert mit Adresse: : " + socket.getRemoteSocketAddress());
+                LocalTime now = LocalTime.now();
+                System.out.println("Akzeptiert mit Adresse: : " + socket.getRemoteSocketAddress() + " um "+ now);
                 ClientThread client = new ClientThread(this, socket);
                 Thread thread = new Thread(client);
                 thread.start();

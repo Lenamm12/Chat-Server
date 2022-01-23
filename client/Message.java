@@ -10,6 +10,7 @@ public class Message implements Serializable {
     private String name;
     private String nachricht;
     public static ArrayList<String> aktiveNutzer = new ArrayList<String>();
+    public static ArrayList<String> nachrichten = new ArrayList<String>();
 
     public String getName() {
         return name;
@@ -32,12 +33,20 @@ public class Message implements Serializable {
         return aktiveNutzer;
     }
     
-    public void nowOnline(String username) {
+    public static void nowOnline(String username) {
     	aktiveNutzer.add(username);
     }
 
 	public void nowOffline(String username) {
 		aktiveNutzer.remove(username);
 	}
+
+	 public static ArrayList<String> getNachrichten() {
+	        return nachrichten;
+	    }
+	    
+	    public static void addNachricht(String nachricht) {
+	    	nachrichten.add(nachricht);
+	    }
 
 }

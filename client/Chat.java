@@ -11,37 +11,43 @@ import javafx.stage.Stage;
 
 public class Chat extends Application {
 	
-	private Scene scene;
 	
 	  public static final String host = "10.0.3.36";
 	    public static final int portNumber = 4711;
 	  
 
-
-	 @Override
-	    public void start(Stage stage) throws Exception {
+	    //Öffnen des Chat-Fensters
+	 public void start(Stage stage) throws Exception {
 
 		 try {
 			 String username = AnmeldenController.getUsername();
-		     System.out.println(username);
+		     System.out.println("Chat:"+username);
 		     
-		     FXMLLoader fmxlLoader = new FXMLLoader(getClass().getResource("Chat.fxml"));
-			 ChatController con =  fmxlLoader.<ChatController>getController();
-        	 Client client = new Client(username, host, portNumber,con);
-        	 client.startClient();
+		     FXMLLoader loader = new FXMLLoader();
+		     loader.setLocation(getClass().getResource("Chat.fxml"));
+		     
+		     Parent root = loader.load();
+			 ChatController con =  loader.<ChatController>getController();
+			    
+		     Client client = new Client(username, host, portNumber, con);
         	 
+
+        	 Scene scene = new Scene(root);
+		     stage.setScene(scene);
+		     stage.show();
+		     
+        	 
+		     con.setClient(client);
+		     client.startClient();
        
-			AnmeldenController.getInstance().showScene();
-			ChatController.nutzerAnzeigen();
+//			con.nutzerAnzeigen();
+//			
+//			con.nachrichtenAnzeigen();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		 
 	    }
-
-	public static void main() {
-		launch();
-		
-	}
 	
 }

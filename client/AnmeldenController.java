@@ -19,20 +19,21 @@ import server.FileManager;
 public class AnmeldenController {
 
 
-    
+ 
 	@FXML
 	private TextField name;
 	@FXML
 	private TextField passwort;
 	
-	private Scene scene;
-	 public static ChatController con;
-
-    private static AnmeldenController instance;
-    
     static String username;
     static String userpasswort;
     static Stage stage;
+   
+	
+	public static ChatController con;
+
+    private static AnmeldenController instance;
+    
     
     public AnmeldenController() {
         instance = this;
@@ -41,57 +42,30 @@ public class AnmeldenController {
     public static AnmeldenController getInstance() {
         return instance;
     }
+    //Methode des Login-Buttons
     @FXML
-    public void login() throws IOException {
+    public void login() throws Exception {
+    	//Auslesen der Nutzerdaten
         username = name.getText();
         userpasswort = passwort.getText();
-        System.out.println(username);
         
-        //Überprüfung
+        //Überprüfung des Nutzers
   //   if(FileManager.loginCheck(username, userpasswort) == true) {
         User.setName(username);
-
-        FXMLLoader fmxlLoader = new FXMLLoader(getClass().getResource("Chat.fxml"));
-        Parent window =  fmxlLoader.load();
-       con = fmxlLoader.<ChatController>getController();
+        Message.nowOnline(username);
         
-   	 
-   	 Chat.main();
-
-   
-       
-     //  Thread chatfenster = new Thread(new Chat());
-    //   chatfenster.start();
-     //   this.scene = new Scene(window);
-        
-     //  }
+        //Weiterleitung zum Chat-Fenster
+        stage = (Stage) name.getScene().getWindow();
+   	 	new Chat().start(stage);
      
     }
 
-    public void showScene() throws IOException {
-        Platform.runLater(() -> {
-            Stage stage = (Stage) name.getScene().getWindow();
-            stage.setResizable(true);
-
-            stage.setOnCloseRequest((WindowEvent e) -> {
-                Platform.exit();
-                System.exit(0);
-            });
-            stage.setScene(this.scene);
-            stage.centerOnScreen();
-        });
-    }
-    
     public static String getUsername () {
     	return username;
     }
 
 	public static String getPasswort () {
 		return userpasswort;
-	}
-
-	public static Stage getPrimaryStage() {
-		return stage;
 	}
 
 }
