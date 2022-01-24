@@ -31,14 +31,8 @@ public class FileManager {
 	     
 	     while (in.hasNextLine())
          {
-	    	 System.out.println("Test");
-	    	 
            String s = in.nextLine();  
            String[] sArray = s.split(",");
-           
-           System.out.println(sArray[0]); 
-           System.out.println(sArray[1]);
-
            
            if (username.equals( sArray[0]) && password.equals(sArray[1]))
            {
@@ -51,7 +45,7 @@ public class FileManager {
              	return true;
            }
            
-           else if (username == sArray[0] && password != sArray[1])
+           else if (username.equals(sArray[0]) && password.equals(sArray[1]))
            {
         	  alert = new Alert(AlertType.WARNING);
         	  alert.setContentText("Falsches Passwort");
@@ -94,10 +88,6 @@ public class FileManager {
          {
            String s = in.nextLine();  
            String[] sArray = s.split(",");
-           
-           System.out.println(sArray[0]); 
-           System.out.println(sArray[1]);
-
            
            if (username == sArray[0])
            {
