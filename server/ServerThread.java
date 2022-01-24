@@ -5,7 +5,6 @@ import java.io.*;
 import java.net.Socket;
 import java.util.LinkedList;
 
-import client.ChatController;
 import client.Client;
 import client.Message;
 import client.User;
@@ -13,11 +12,9 @@ import javafx.application.Platform;
 
 public class ServerThread implements Runnable {
     private Socket socket;
-    //private boolean isAlive;
     private final LinkedList<String> messagesToSend;
     public  boolean hasMessages = false;
     private final LinkedList<String> messagesReceived;
-    private boolean getMessages = false;
 	private Client client;
 
     public ServerThread(Socket socket, Client client){
@@ -90,14 +87,6 @@ public class ServerThread implements Runnable {
                     String nextSend = "";
                     synchronized(messagesToSend){
                         nextSend = messagesToSend.pop();
-//                        Message.addNachricht(nextSend);
-//                   		Platform.runLater(new Runnable() {
-//    							@Override
-//    							public void run() {
-//    								// TODO Auto-generated method stub
-//    								client.controller.nachrichtenAnzeigen();
-//    							}
-//    						});
                         hasMessages = !messagesToSend.isEmpty();
                     }
                     serverOut.println(User.getName() + " : " + nextSend);
