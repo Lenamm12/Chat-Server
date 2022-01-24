@@ -33,8 +33,11 @@ public class Message implements Serializable {
         return aktiveNutzer;
     }
     
-    public static void nowOnline(String username) {
+    public static boolean nowOnline(String username) {
+    	if (aktiveNutzer.contains(username))
+    		return false;
     	aktiveNutzer.add(username);
+    	return true;
     }
 
 	public void nowOffline(String username) {

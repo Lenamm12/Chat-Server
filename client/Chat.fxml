@@ -39,8 +39,8 @@
               </ScrollPane>
                 <AnchorPane id="neue_Nachrichten" maxHeight="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="50.0" prefWidth="670.0">
                      <children>
-                        <TextField fx:id="neue_Nachricht" layoutX="14.0" layoutY="3.0" prefHeight="44.0" prefWidth="589.0" />
-                        <Button id="sendenButton" alignment="CENTER_RIGHT" layoutX="610.0" layoutY="13.0" mnemonicParsing="false" onAction="#nachricht_senden" text="Senden" />
+                        <TextField fx:id="neue_Nachricht" layoutX="3.0" layoutY="3.0" prefHeight="44.0" prefWidth="600.0" />
+                        <Button id="sendenButton" alignment="CENTER_RIGHT" defaultButton="true" layoutX="610.0" layoutY="13.0" mnemonicParsing="false" onAction="#nachricht_senden" text="Senden" />
                      </children>
                   </AnchorPane>
               </items>

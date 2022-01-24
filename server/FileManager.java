@@ -15,10 +15,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 public class FileManager {
-	static String nutzerdb = "Nutzer.txt";
+	static String nutzerdb = "server/Nutzer.txt";
 	
 	static Alert alert;
 	
+	static Scanner in;
 	
 	
 	//Nutzer Überprüfung beim Login
@@ -26,7 +27,7 @@ public class FileManager {
 	try {
 		File fp = new File(nutzerdb);
 		
-	     Scanner in = new Scanner(fp);
+	     in = new Scanner(fp);
 	     
 	     while (in.hasNextLine())
          {
@@ -45,7 +46,7 @@ public class FileManager {
              alert.setContentText("Login erfolgreich");
              alert.show();
              
-             Message.aktiveNutzer.add(username);
+             Message.nowOnline(username);
             		 
              	return true;
            }
@@ -82,7 +83,7 @@ public class FileManager {
 	}
 	
 	///Nutzer Überprüfung registrieren + Schreiben in die Datei
-	public void registrierenCheck(String username, String passwort) throws IOException {
+	public static void registrierenCheck(String username, String passwort) throws IOException {
 		File fp = new File(nutzerdb);
 		
 		Scanner in = new Scanner(fp);
@@ -112,11 +113,15 @@ public class FileManager {
 		if(exists == false) {
 			FileWriter fw = new FileWriter(fp, true);
 		    BufferedWriter bw = new BufferedWriter(fw);
-		    bw.write(username+","+passwort);
 		    bw.newLine();
+		    bw.write(username+","+passwort);
 		    bw.close();
 		    
-		    Message.aktiveNutzer.add(username);
+		    Message.nowOnline(username);
+		    
+		    alert = new Alert(AlertType.CONFIRMATION);
+            alert.setContentText("Nutzer wurde registriert. Beim nächsten Start mit Login möglich");
+            alert.show();
 		}
 		
 		

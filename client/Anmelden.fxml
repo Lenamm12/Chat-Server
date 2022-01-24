@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="528.0" prefWidth="453.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.AnmeldenController">
+<VBox prefHeight="528.0" prefWidth="453.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.AnmeldenController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -28,16 +28,16 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField layoutX="221.0" layoutY="147.0" fx:id="name" />
+            <TextField fx:id="name" layoutX="221.0" layoutY="147.0" />
         
             <Label layoutX="103.0" layoutY="219.0" text="Passwort">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-                <TextField layoutX="221.0" layoutY="215.0"  fx:id="passwort" />
-            <Button layoutX="265.0" layoutY="336.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Login" onAction="#login"  />
-            <Button layoutX="119.0" layoutY="336.0" mnemonicParsing="false" text="Registrieren"  />
+                <TextField fx:id="passwort" layoutX="221.0" layoutY="215.0" />
+            <Button defaultButton="true" layoutX="265.0" layoutY="336.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="80.0" text="Login" />
+            <Button layoutX="119.0" layoutY="336.0" mnemonicParsing="false" onAction="#registrieren" text="Registrieren" />
       </children>
     </AnchorPane>
   </children>

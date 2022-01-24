@@ -7,7 +7,7 @@ import server.ServerThread;
 
 public class Client {
 
-
+	private Client client;
     private static String userName;
     private static String serverHost;
     private static int serverPort;
@@ -39,20 +39,20 @@ public class Client {
     	
            
         try{
-        	System.out.println("Methode startClient()");
             Socket socket = new Socket(serverHost, serverPort);
             Thread.sleep(1000); 
             
-            ServerThread serverThread = new ServerThread(socket, userName);
+            ServerThread serverThread = new ServerThread(socket, this);
             serverAccessThread = new Thread(serverThread);
             serverAccessThread.start();
             setServerThread(serverThread);
+            Message.addNachricht(userName +" ist dem Chat beigetreten");
 
         }catch(IOException ex){
-            System.err.println("Verbindungsfehler!");
+            System.err.println("Es kann keine Verbindung hergestellt werden.!");
             ex.printStackTrace();
         }catch(InterruptedException ex){
-            System.out.println("Unterbrochen");
+            System.out.println("Die Verbindung wurde unterbrochen");
         }
                    
     }

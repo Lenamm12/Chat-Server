@@ -3,6 +3,7 @@ package client;
 import java.io.IOException;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,7 +22,6 @@ public class Chat extends Application {
 
 		 try {
 			 String username = AnmeldenController.getUsername();
-		     System.out.println("Chat:"+username);
 		     
 		     FXMLLoader loader = new FXMLLoader();
 		     loader.setLocation(getClass().getResource("Chat.fxml"));
@@ -31,6 +31,7 @@ public class Chat extends Application {
 			    
 		     Client client = new Client(username, host, portNumber, con);
         	 
+		     stage.setOnCloseRequest(e -> {Platform.exit(); System.exit(0);});
 
         	 Scene scene = new Scene(root);
 		     stage.setScene(scene);
@@ -40,9 +41,6 @@ public class Chat extends Application {
 		     con.setClient(client);
 		     client.startClient();
        
-//			con.nutzerAnzeigen();
-//			
-//			con.nachrichtenAnzeigen();
 			
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -4,22 +4,25 @@ package server;
 import java.io.*;
 import java.net.Socket;
 import java.util.LinkedList;
-import java.util.Scanner;
 
+import client.ChatController;
+import client.Client;
 import client.Message;
+import client.User;
+import javafx.application.Platform;
 
 public class ServerThread implements Runnable {
     private Socket socket;
-    private String userName;
     //private boolean isAlive;
     private final LinkedList<String> messagesToSend;
     public  boolean hasMessages = false;
     private final LinkedList<String> messagesReceived;
     private boolean getMessages = false;
+	private Client client;
 
-    public ServerThread(Socket socket, String userName){
+    public ServerThread(Socket socket, Client client){
         this.socket = socket;
-        this.userName = userName;
+        this.client = client;
         messagesToSend = new LinkedList<String>();
         messagesReceived = new LinkedList<String>();
     }
@@ -46,7 +49,7 @@ public class ServerThread implements Runnable {
 
     @Override
     public void run(){
-        System.out.println("Willkommen :" + userName);
+        System.out.println("Willkommen :" + User.getName());
 
         System.out.println("Local Port :" + socket.getLocalPort());
         System.out.println("Server = " + socket.getRemoteSocketAddress() + ":" + socket.getPort());
@@ -57,21 +60,47 @@ public class ServerThread implements Runnable {
 
             while(!socket.isClosed()){
                 if(serverInStream.ready()) { 
-                	String s = serverInStream.readLine();
-                	messagesReceived.push(s);
-                	Message.addNachricht(s);
+                	synchronized(messagesReceived) {
+                		String s = serverInStream.readLine();
+                		messagesReceived.push(s);
+                		Message.addNachricht(s);
+                		Platform.runLater(new Runnable() {
+							@Override
+							public void run() {
+								client.controller.nachrichtenAnzeigen();
+							}
+						});
+                		String ben = s.split(":")[0].trim();
+                		if (Message.nowOnline(ben)) {
+                    		Platform.runLater(new Runnable() {
+    							@Override
+    							public void run() {
+    								client.controller.nutzerAnzeigen();
+    							}
+    						});
+                			
+                		}
+                	    System.out.println(s);
+                	}
                 	
-                   System.out.println(s);
+              
                  
                 }
                 if(hasMessages){
                     String nextSend = "";
                     synchronized(messagesToSend){
                         nextSend = messagesToSend.pop();
-                        Message.addNachricht(nextSend);
+//                        Message.addNachricht(nextSend);
+//                   		Platform.runLater(new Runnable() {
+//    							@Override
+//    							public void run() {
+//    								// TODO Auto-generated method stub
+//    								client.controller.nachrichtenAnzeigen();
+//    							}
+//    						});
                         hasMessages = !messagesToSend.isEmpty();
                     }
-                    serverOut.println(userName + " : " + nextSend);
+                    serverOut.println(User.getName() + " : " + nextSend);
                     serverOut.flush();
                 }
             }
